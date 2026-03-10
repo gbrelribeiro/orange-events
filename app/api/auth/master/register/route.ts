@@ -10,7 +10,7 @@ import {
   emailSchema,
   passwordSchema,
 } from "@/lib/validations";
-import { sendVerifyEmail } from "@/lib/email/service";
+import { sendVerifyEmailMaster } from "@/lib/email/service";
 
 /* MASTER REGISTER VALIDATION SCHEMA */
 const masterRegisterSchema = z.object({
@@ -112,7 +112,7 @@ export async function POST(req: Request) {
 
     /* SEND EMAIL */
     try {
-      await sendVerifyEmail(
+      await sendVerifyEmailMaster(
         result.master.email,
         result.token,
         baseUrl

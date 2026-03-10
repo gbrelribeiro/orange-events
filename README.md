@@ -32,6 +32,7 @@ npm install --save-dev @types/bcrypt
 npm install zod
 npm install ts-node
 npm install nodemailer
+npm install --save-dev @types/nodemailer
 ```
 
 <div>
@@ -104,8 +105,13 @@ npx prisma migrate reset
 </div>
 
 ```bash
-JWT_SECRET=código de segurança longo, da sua preferência (sem aspas)
+JWT_SECRET=Código de segurança longo, da sua preferência (sem aspas)
 DATABASE_URL="Link fornecido pelo Supabase na área de Conexão" (com aspas)
+SUPER_ADMIN_EMAIL="Email do super admin" (com aspas)
+SUPER_ADMIN_PASSWORD="Senha do super admin" (com aspas)
+SUPER_ADMIN_FIRST_NAME="Primeiro Nome do Super Admin" (com aspas)
+SUPER_ADMIN_LAST_NAME="Segundo Nome do Super Admin" (com aspas)
+RESEND_API_KEY=Chave da API do Resend (sem aspas)
 ```
 
 ### • Para gerar um JWT Secret
