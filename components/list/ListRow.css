@@ -1,0 +1,46 @@
+/* components/list/ListRow.css */
+
+@import "../../app/globals.css";
+
+.row-styles {
+  @apply
+    grid 
+    items-center 
+    gap-3 
+    md:gap-6 
+    px-3 
+    py-2 
+    md:px-4 
+    md:py-3 
+    transition-colors 
+    duration-200
+}
+
+.row-clickable {
+  @apply
+    cursor-pointer 
+    hover:bg-neutral-50 
+    dark:hover:bg-neutral-800
+}
+
+.row-unclickable {
+  @apply
+    hover:bg-neutral-50/50 dark:hover:bg-neutral-800/50
+}
+
+.column-title {
+  @apply
+    truncate 
+    text-neutral-700 
+    dark:text-neutral-200
+}
+
+.list-action {
+  @apply
+    text-neutral-500 
+    hover:bg-neutral-200 
+    dark:hover:bg-neutral-700 
+    hover:text-primary 
+    active:scale-95 
+    transition-all  
+}

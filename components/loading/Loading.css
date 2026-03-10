@@ -1,0 +1,16 @@
+/* components/loading/Loading.css */
+
+@import "../../app/globals.css";
+
+.spin-loading {
+  @apply
+    w-10
+    h-10 
+    animate-spin 
+    rounded-full 
+    border-5 
+    border-neutral-300 
+    border-t-neutral-900 
+    dark:border-neutral-700 
+    dark:border-t-neutral-100
+}

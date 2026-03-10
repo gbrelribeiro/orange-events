@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  MASTER
+  CLIENT
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum EventStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum EventTag {
+  PUBLIC
+  PRIVATE
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELED
+}
+
+enum TicketStatus {
+  RESERVED
+  PAID
+  CANCELED
+}
+
+enum PaymentMethod {
+  CASH
+  INSTALLMENT
+}
+
+enum PurchasePaymentMethod {
+  PIX
+  INSTALLMENTS
+}
+
+enum PurchaseStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model Client {
+  id                  String                        @id @default(cuid())
+  firstName           String
+  lastName            String
+  email               String                        @unique
+  password            String
+  role                Role                          @default(CLIENT)
+  identity            String                        @unique
+  document            String                        @unique
+  phone               String
+  birthdate           DateTime
+  createdAt           DateTime                      @default(now())
+  updatedAt           DateTime                      @updatedAt
+  address             Address?
+  companions          Companion[]
+  purchases               Purchase[]
+  tickets             Ticket[]
+  passwordResetTokens PasswordResetToken[]
+  emailVerified       Boolean                       @default(false)
+  emailVerification   EmailVerificationToken[]
+}
+
+model Admin {
+  id                  String                        @id @default(cuid())
+  firstName           String
+  lastName            String
+  email               String                        @unique
+  password            String
+  role                Role                          @default(ADMIN)
+  createdAt           DateTime                      @default(now())
+  updatedAt           DateTime                      @updatedAt
+  passwordResetTokens PasswordResetToken[]
+}
+
+model Master {
+  id                  String                        @id @default(cuid())
+  firstName           String
+  lastName            String
+  organizationName    String                        @unique
+  email               String                        @unique
+  password            String
+  role                Role                          @default(MASTER)
+  createdAt           DateTime                      @default(now())
+  updatedAt           DateTime                      @updatedAt
+  verifiedAccount     Boolean
+  emailVerified       Boolean                       @default(false)
+  emailVerification   EmailVerificationToken[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model Address {
+  id                        String                      @id @default(cuid())
+  zipCode                   String
+  street                    String
+  number                    String
+  complement                String?
+  neighborhood              String
+  city                      String
+  state                     String
+  clientId                  String                      @unique
+  client                    Client                      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Event {
+  id                        String                      @id @default(uuid())
+  title                     String
+  description               String
+  cashPrice                 Int
+  installmentPrice          Int
+  image                     String
+  initDate                  DateTime
+  finalDate                 DateTime
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  status                    EventStatus                  @default(ACTIVE)
+  tag                       EventTag                     @default(PUBLIC)
+  vacancies                 Int
+  tickets                   Ticket[]
+}
+
+model Companion {
+  id                        String                      @id @default(uuid())
+  clientId                  String
+  orderItemId               String?
+  name                      String
+  birthdate                 DateTime
+  document                  String
+  identity                  String
+  gender                    Gender                      @default(MALE)
+  isMinor                   Boolean                     @default(false)
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  client                    Client                      @relation(fields: [clientId], references: [id])
+  ticket                    Ticket[]
+  phone                     String?
+  active                    Boolean                     @default(true)
+
+  @@unique([clientId, document]) 
+}
+
+model Ticket {
+  id                        String                      @id @default(uuid())
+  eventId                   String
+  clientId                  String
+  purchaseId                String?
+  purchase                  Purchase?                   @relation(fields: [purchaseId], references: [id])
+  baby                      Boolean
+  status                    TicketStatus
+  createdAt                 DateTime                    @default(now())
+  expiresAt                 DateTime
+  companionName             String?
+  companionDocument         String?  
+  event                     Event                       @relation(fields: [eventId], references: [id])
+  client                    Client                      @relation(fields: [clientId], references: [id])
+  companionId               String?
+  companion                 Companion?                  @relation(fields: [companionId], references: [id])
+}
+
+model Purchase {
+  id                String                 @id @default(uuid())
+  clientId          String
+  userDocument      String
+  totalcents        Int
+  status            PurchaseStatus
+  amountReturnCents Int?
+  paymentMethod     PurchasePaymentMethod?
+  externalRef       String?                @unique
+  checkoutUrl       String?
+  saleCode          String?
+  createdAt         DateTime               @default(now())
+  expiresAt         DateTime
+  installments      Int                    @default(1)
+  needReview        Boolean                @default(false)
+  reviewd           Boolean?
+  client            Client                 @relation(fields: [clientId], references: [id])
+  ticket            Ticket[]
+}
+
+model PasswordResetToken {
+  id                      String                        @id @default(uuid())
+  token                   String                        @unique
+  clientId                String
+  client                  Client                        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  adminId                 String
+  admin                   Admin                         @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  masterId                String
+  master                  Master                        @relation(fields: [masterId], references: [id], onDelete: Cascade)
+  expiresAt               DateTime
+  createdAt               DateTime                      @default(now())
+
+  @@index([clientId, adminId, masterId])
+  @@index([token])
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id                    String                          @id @default(cuid())
+  token                 String                          @unique
+  clientId              String?
+  masterId              String?
+  expiresAt             DateTime
+  used                  Boolean                         @default(false)
+  createdAt             DateTime                        @default(now())
+  client                Client?                          @relation(fields: [clientId], references: [id])
+  master                Master?                          @relation(fields: [masterId], references: [id])
+}

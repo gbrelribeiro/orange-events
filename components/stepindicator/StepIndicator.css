@@ -1,0 +1,63 @@
+/* components/stepindicator/StepIndicator.css */
+
+@import "../../app/globals.css";
+
+.step-indicator-wrapper {
+  @apply
+    w-full
+    flex
+    justify-center
+    items-center
+    mb-5
+}
+
+.step-item {
+  @apply
+    flex
+    items-center
+}
+
+.step-number {
+  @apply
+    w-8
+    h-8
+    border-2
+    font-bold
+    text-sm
+    rounded-full
+    flex
+    items-center
+    justify-center
+}
+
+.step-selected {
+  @apply 
+    bg-primary 
+    border-primary 
+    text-white
+}
+
+.step-completed {
+  @apply 
+    border-primary 
+    text-primary
+}
+
+.step-incompleted {
+  @apply 
+    border-gray-300 
+    text-gray-400
+}
+
+.step-line {
+  @apply
+    w-12
+    h-0.5
+    bg-gray-300
+    mx-3
+}
+
+.step-line.completed {
+  @apply 
+    bg-primary
+}

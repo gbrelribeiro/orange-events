@@ -1,0 +1,43 @@
+/* components/footer/Footer.css */
+
+@import "../../app/globals.css";
+
+.footer-styles {
+  @apply
+    w-full 
+    border-t
+    border-neutral-200 
+    dark:border-neutral-700 
+    bg-neutral-100 
+    dark:bg-neutral-900 
+}
+
+.footer-behavior {
+  @apply
+    flex 
+    flex-col
+    md:flex-row 
+    justify-between 
+    items-center
+    max-w-7xl 
+    mx-auto 
+    px-5
+    py-5   
+    gap-5
+}
+
+.whatsapp {
+  @apply
+    text-neutral-100
+    bg-[#25d366]
+    hover:bg-[#128c7e]
+    active:bg-[#128c7e]/70
+}
+
+.instagram {
+  @apply
+    text-neutral-100
+    bg-[#e1306c]
+    hover:bg-[#c13584]
+    active:bg-[#c13584]/70
+}

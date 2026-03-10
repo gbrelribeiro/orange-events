@@ -1,0 +1,41 @@
+/* components/modal/Modal.css */
+
+@import "../../app/globals.css";
+
+.modal-position {
+  @apply
+    fixed 
+    flex 
+    justify-center
+    items-center
+    inset-0 
+    z-9999 
+}
+
+.modal-overlay {
+  @apply
+    absolute 
+    inset-0 
+    bg-black/70
+}
+
+.modal-styles {
+  @apply
+    relative 
+    w-full 
+    bg-white 
+    p-5
+    z-10000 
+    rounded-lg
+    mx-auto
+}
+
+.modal-title {
+  @apply 
+    flex 
+    justify-center
+    text-xl 
+    font-semibold 
+    text-neutral-900
+    mb-5
+}

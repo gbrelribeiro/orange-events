@@ -1,0 +1,185 @@
+/* components/searchbars/ClientSearch.css */
+
+@import "../../app/globals.css";
+
+.mobile-active {
+  @apply
+    md:hidden 
+    flex 
+    w-full
+    items-center 
+    gap-3 
+}
+
+.back-button {
+  @apply
+    p-5
+    cursor-pointer
+}
+
+.back-icon {
+  @apply 
+    w-8
+    h-8
+    active:bg-neutral-200/20
+    active:scale-95
+    rounded-lg
+}
+
+.search-icon-mobile {
+  @apply 
+    absolute 
+    top-3
+    left-2 
+    w-5 
+    h-5
+}
+
+.search-mobile {
+  @apply 
+    flex-1 
+    w-full 
+    relative 
+    text-neutral-400 
+    focus-within:text-neutral-900
+}
+
+.icon-desktop {
+  @apply 
+    absolute 
+    top-5.5 
+    left-2 
+    w-5 
+    h-5
+}
+
+.search-desktop {
+  @apply 
+    md:flex
+    relative
+    hidden 
+    justify-center 
+    items-center 
+    w-full 
+    text-neutral-400 
+    focus-within:text-neutral-900
+}
+
+/* SEARCH RESULTS POPUP */
+.search-results-popup {
+  @apply
+    absolute
+    z-50
+    w-full
+    max-h-96
+    overflow-y-auto
+    bg-white
+    border
+    border-neutral-200
+    rounded-lg
+    shadow-lg
+}
+
+.desktop-popup {
+  @apply
+    top-14
+    left-0
+}
+
+.mobile-popup {
+  @apply
+    top-12
+    left-0
+}
+
+.search-results-header {
+  @apply
+    px-4
+    py-2
+    text-sm
+    font-semibold
+    text-neutral-600
+    border-b
+    border-neutral-200
+    bg-neutral-50
+}
+
+.search-result-item {
+  @apply
+    flex
+    gap-3
+    p-3
+    w-full
+    text-left
+    hover:bg-neutral-50
+    transition-colors
+    border-b
+    border-neutral-100
+    last:border-b-0
+    cursor-pointer
+}
+
+.result-image-container {
+  @apply
+    relative
+    w-28
+    h-20
+    shrink-0
+    rounded-md
+    overflow-hidden
+    border
+    border-neutral-200
+}
+
+.result-image {
+  @apply
+    object-cover
+}
+
+.result-info {
+  @apply
+    flex
+    flex-col
+    gap-1
+    flex-1
+    min-w-0
+}
+
+.result-header {
+  @apply
+    flex
+    items-start
+    justify-between
+    gap-2
+}
+
+.result-title {
+  @apply
+    font-semibold
+    text-neutral-900
+    truncate
+    flex-1
+}
+
+.result-description {
+  @apply
+    text-sm
+    text-neutral-600
+    line-clamp-2
+}
+
+.result-price {
+  @apply
+    text-sm
+    font-semibold
+    text-primary
+    mt-1
+}
+
+.search-no-results {
+  @apply
+    px-4
+    py-8
+    text-center
+    text-neutral-500
+}

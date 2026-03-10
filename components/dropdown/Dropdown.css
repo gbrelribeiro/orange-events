@@ -1,0 +1,50 @@
+/* components/dropdown/Dropdown.css */
+
+@import "../../app/globals.css";
+
+.dropdown-container {
+  @apply
+    absolute
+    right-0
+    mt-5
+    w-56
+    z-50
+    border
+    border-neutral-200
+    dark:border-neutral-700
+    bg-neutral-100
+    dark:bg-neutral-900
+    rounded-lg
+    shadow-lg
+    overflow-hidden
+}
+
+.division {
+  @apply
+    border-neutral-200 
+    dark:border-neutral-700
+    mx-5
+}
+
+.dropdown-item {
+  @apply
+    block
+    w-full
+    px-4
+    py-6    
+    md:py-4
+    text-lg
+    md:text-base
+    text-left
+    border-b
+    border-neutral-200
+    text-neutral-700
+    hover:bg-neutral-300
+    active:text-neutral-500
+    dark:border-neutral-700
+    dark:text-neutral-100
+    dark:hover:bg-neutral-600
+    dark:active:text-neutral-200
+    transition
+    cursor-pointer
+}

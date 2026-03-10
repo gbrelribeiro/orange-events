@@ -1,26 +1,407 @@
+/* app/globals.css */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #ff914c;
+  --color-secondary: #a35c2f;
+  --color-tertiary: #199d5e;
+  --color-quaternary: #127043;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .background {
+    @apply
+      bg-neutral-100
+      text-neutral-900
+      dark:bg-neutral-900
+      dark:text-neutral-100
+      font-semibold
+      min-h-screen
   }
-}
+  
+  .auth-background {
+    @apply
+      bg-primary
+      text-neutral-100
+      font-semibold
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .auth-content {
+    @apply
+      flex
+      flex-col
+      justify-center
+      items-center
+      md:min-h-screen 
+      h-screen
+      pl-5
+      pr-5
+  }
+
+  .section-container {
+    @apply
+      gap-5
+      p-10
+      border
+      border-neutral-200
+      bg-neutral-100
+      dark:border-neutral-700
+      dark:bg-neutral-900
+      rounded-lg
+  }
+
+  @layer components {
+    .dashboard-content {
+      @apply
+        lg:ml-64 
+        p-5 
+        pt-20 
+        md:p-10
+    }
+  }
+
+  .title {
+    @apply 
+      text-2xl 
+      text-primary 
+      dark:text-neutral-100 
+      font-semibold
+  }
+
+  .button {
+    @apply
+      p-3
+      flex
+      justify-center
+      items-center
+      active:scale-95
+      font-medium
+      rounded-lg
+      cursor-pointer
+      transition-transform 
+      duration-150
+      outline-none
+  }
+
+  .button.clean {
+    @apply
+      border
+      border-neutral-900
+      text-neutral-900
+      bg-neutral-300
+      hover:bg-neutral-400
+      active:bg-neutral-500
+      dark:border-neutral-700
+      dark:text-neutral-100
+      dark:bg-neutral-700
+      dark:hover:bg-neutral-600
+      dark:active:bg-neutral-500     
+  }
+
+  .button.default {
+    @apply
+      text-neutral-900
+      bg-primary 
+      hover:bg-secondary
+      active:bg-secondary/70
+  }
+
+  .button.green {
+    @apply
+      text-neutral-100
+      bg-tertiary
+      hover:bg-quaternary
+      active:bg-quaternary/70
+  }
+
+  .button.red {
+    @apply
+      text-neutral-100
+      bg-red-700
+      hover:bg-red-900
+      active:bg-red-900/70
+  }
+
+  .disabled-button {
+    @apply
+      px-4
+      py-2
+      flex
+      justify-center
+      items-center
+      bg-neutral-300
+      text-neutral-500
+      dark:bg-neutral-600
+      dark:text-neutral-300
+      font-medium
+      rounded-lg
+      cursor-not-allowed
+      transition
+      outline-none
+  }
+
+  .hidden-button {
+    @apply
+      hover:text-primary 
+      active:text-secondary/70
+      active:scale-95
+      transition-colors
+  }
+
+  .underlined {
+    @apply
+      underline
+      text-lg
+      md:text-base
+      text-primary
+      hover:text-secondary
+      active:text-secondary/70
+      active:scale-95
+      transition-transform 
+      duration-150
+      inline-block
+      font-semibold
+      rounded-lg
+      cursor-pointer
+  }
+
+  .input {
+    @apply
+      w-full
+      py-2
+      pl-2 
+      pr-2
+      border
+      border-neutral-200
+      bg-neutral-100
+      focus:bg-neutral-200
+      text-neutral-400
+      focus:text-neutral-900
+      dark:border-neutral-700
+      dark:bg-neutral-900
+      dark:focus:bg-neutral-700
+      dark:text-neutral-500
+      dark:focus:text-neutral-100
+      rounded-lg
+      font-medium
+      outline-none
+  }
+
+  .error-input {
+    @apply
+      border-red-500
+      text-red-600
+      focus:text-red-600
+      focus:bg-red-300
+      dark:focus:bg-red-900/40
+  }
+
+  .error-text {
+    @apply
+      text-red-600
+      font-medium
+      text-sm
+  }
+
+  .message {
+    @apply
+      p-2
+      border
+      text-center
+      rounded-lg
+  }
+
+  .message.confirm {
+    @apply
+      border-green-500
+      bg-green-300
+      text-green-600
+  }
+
+  .message.warning {
+    @apply
+      border-amber-500
+      bg-amber-300
+      text-amber-600
+  }
+
+  .message.error {
+    @apply
+      border-red-500
+      bg-red-300
+      text-red-600
+  }
+
+  .information {
+    @apply
+      text-sm 
+      text-neutral-600 
+      dark:text-neutral-400
+  }
+
+  .between {
+    @apply 
+      flex 
+      justify-between 
+      items-center
+  }
+
+  .center {
+    @apply 
+      flex 
+      justify-center 
+      items-center
+  }
+
+  .start {
+    @apply 
+      flex 
+      justify-start 
+      items-center
+  }
+
+  .end {
+    @apply 
+      flex 
+      justify-end 
+      items-center
+  }
+
+  .column {
+    @apply 
+      flex 
+      flex-col
+  }
+
+  .row {
+    @apply 
+      flex 
+      flex-row
+  }
+
+  .wrap {
+    @apply
+      flex
+      flex-wrap
+  }
+
+  .grids {
+    @apply
+      grid 
+      grid-cols-1 
+      md:grid-cols-2
+  }
+
+  .bold-sm {
+    @apply
+      font-bold
+      text-sm
+  }
+
+  .semibold-sm {
+    @apply
+      font-semibold
+      text-sm
+  }
+
+  .bold-lg {
+    @apply
+      font-bold
+      text-lg
+  }
+
+  .semibold-lg {
+    @apply
+      font-semibold
+      text-lg
+  }
+
+  .bold-xl {
+    @apply
+      font-bold
+      text-xl
+  }
+
+  .semibold-xl {
+    @apply
+      font-semibold
+      text-xl
+  }
+
+  .bold-2xl {
+    @apply
+      font-bold
+      text-2xl
+  }
+
+  .semibold-2xl {
+    @apply
+      font-semibold
+      text-2xl
+  }
+
+  .bold-3xl {
+    @apply
+      font-bold
+      text-3xl
+  }
+
+  .semibold-3xl {
+    @apply
+      font-semibold
+      text-3xl
+  }
+
+  .bold-4xl {
+    @apply
+      font-bold
+      text-4xl
+  }
+
+  .semibold-4xl {
+    @apply
+      font-semibold
+      text-4xl
+  }
+
+  .default-text {
+    @apply
+      text-sm
+      md:text-base
+  }
+
+  .icon-size-sm {
+    @apply
+      w-5
+      h-5
+  }
+
+  .icon-size-md {
+    @apply
+      w-8
+      h-8
+  }
+
+  .icon-size-lg {
+    @apply
+      w-12
+      h-12
+  }
+
+  .dropdown-position {
+    @apply
+      absolute 
+      top-full 
+      mt-2 
+      right-0 
+      z-9999 
+      min-w-37.5
+  }
+
+  .mobile-hidden {
+    @apply
+      md:block
+      hidden
+  }
 }

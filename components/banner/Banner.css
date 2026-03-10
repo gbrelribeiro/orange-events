@@ -1,0 +1,29 @@
+/* components/banner/Banner.css */
+
+@import "../../app/globals.css";
+
+.banner-styles {
+  @apply
+    relative
+    w-full
+    md:w-1/2
+    aspect-video
+    border
+    border-neutral-300
+    rounded-lg
+    overflow-hidden
+    block
+}
+
+.banner-image {
+  @apply
+    object-cover
+    object-center
+}
+
+.banner-link {
+  @apply
+    transition-opacity
+    hover:opacity-50
+    active:scale-95
+}

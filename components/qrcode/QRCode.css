@@ -1,0 +1,21 @@
+/* components/qrcode/QRCode.css */
+
+@import "../../app/globals.css";
+
+.qrcode-section {
+  @apply
+    relative 
+    p-2
+    w-64 
+    h-64 
+    bg-neutral-100
+    rounded-lg 
+    overflow-hidden
+}
+
+.qrcode-image {
+  @apply
+    p-2
+    object-contain 
+    bg-neutral-100
+}

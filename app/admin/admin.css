@@ -1,0 +1,13 @@
+/* app/admin/admin.css */
+
+@import "../globals.css";
+
+@layer components {
+  .dashboard-content {
+    @apply
+      lg:ml-64 
+      p-5 
+      pt-20 
+      md:p-10
+  }
+}

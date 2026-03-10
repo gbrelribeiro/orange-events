@@ -1,0 +1,34 @@
+/* components/linkbutton/LinkButton.css */
+
+@import "../../app/globals.css";
+
+.link-button {
+  @apply
+    relative
+    md:absolute
+    md:top-32
+    underline
+    text-lg
+    md:text-base
+    active:scale-95
+    transition-transform 
+    duration-150
+    inline-block
+    font-semibold
+    rounded-lg
+    cursor-pointer
+}
+
+.colored-button {
+  @apply
+    text-primary
+    hover:text-secondary
+    active:text-secondary/80
+}
+
+.white-button {
+  @apply
+    text-neutral-100
+    hover:text-neutral-200
+    active:text-neutral-200/80
+}

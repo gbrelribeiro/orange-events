@@ -1,0 +1,68 @@
+/* components/counter/CompanionCounter.css */
+
+@import "../../app/globals.css";
+
+.companion-counter-container {
+  @apply
+    w-full
+    space-y-4
+}
+
+.companion-counter-title {
+  @apply
+    text-lg
+    font-semibold
+    text-neutral-900
+}
+
+.companion-counter-item {
+  @apply
+    flex
+    items-center
+    justify-between
+    p-4
+    bg-neutral-50
+    rounded-lg
+    border
+    border-neutral-200
+}
+
+.companion-info {
+  @apply
+    flex
+    flex-col
+    gap-2
+}
+
+.companion-label {
+  @apply
+    font-semibold
+    text-neutral-900
+}
+
+.companion-description {
+  @apply
+    text-xs
+    md:text-sm
+    text-neutral-600
+}
+
+.total-companions {
+  @apply
+    text-center
+    font-semibold
+    text-primary
+    pt-2
+    border-t
+    border-neutral-200
+}
+
+.companion-counter-division {
+  @apply
+    border-t 
+    border-neutral-200 
+    dark:border-neutral-700 
+    mt-4 
+    pt-4 
+    space-y-2
+}

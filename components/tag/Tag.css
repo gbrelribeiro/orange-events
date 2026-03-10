@@ -1,0 +1,31 @@
+/* components/tag/Tag.css */
+
+@import "../../app/globals.css";
+
+.tag-styles {
+  @apply
+    inline-flex
+    items-center
+    px-4
+    py-2
+    gap-2 
+    bg-blue-200  
+    text-blue-800 
+    font-semibold
+    text-sm
+    rounded-xl 
+    whitespace-nowrap
+    pointer-events-none
+}
+
+.tag-icon {
+  @apply
+    w-4
+    h-4
+    min-w-4
+}
+
+.tag-text {
+  @apply
+    inline
+}

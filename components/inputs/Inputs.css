@@ -1,0 +1,11 @@
+/* _components/phone/Phone.css */
+
+@import "../../app/globals.css";
+
+.wrapper {
+  @apply  
+    flex 
+    flex-col 
+    w-full
+    gap-1
+}

@@ -1,0 +1,16 @@
+/* components/eventdate/EventDate.css */
+
+@import "../../app/globals.css";
+
+.event-date-container {
+  @apply
+    flex
+    flex-col
+    gap-1
+}
+
+.event-date-label {
+  @apply
+    font-medium 
+    pl-2
+}

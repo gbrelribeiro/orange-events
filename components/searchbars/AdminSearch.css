@@ -1,0 +1,20 @@
+/* components/searchbars/AdminSearch.css */
+
+@import "../../app/globals.css";
+
+.admin-search-styles {
+  @apply
+    relative
+    text-neutral-400 
+    focus-within:text-neutral-900
+}
+
+.admin-search-icon {
+  @apply
+    absolute 
+    top-3 
+    left-3 
+    w-5 
+    h-5
+    text-neutral-400
+}

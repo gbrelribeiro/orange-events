@@ -1,0 +1,36 @@
+/* components/buttons/CopyButton.css */
+
+@import "../../app/globals.css";
+
+.copy-button {
+  @apply 
+    flex 
+    items-center  
+    px-3 
+    py-2 
+    gap-2
+    border 
+    border-primary
+    bg-primary 
+    hover:bg-secondary
+    hover:border-secondary
+    active:bg-neutral-200/20
+    active:scale-95 
+    text-white
+    rounded-lg 
+    transition-all 
+    duration-200  
+    cursor-pointer
+}
+
+.copy-button.copied {
+  @apply 
+    bg-green-100 
+    text-tertiary 
+    border-tertiary
+}
+
+.copy-icon {
+  @apply 
+    inline-block
+}

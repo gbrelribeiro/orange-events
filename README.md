@@ -1,36 +1,174 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">
+  Orange Events
+</h1>
 
-## Getting Started
+<p align="center">
+  Este projeto utiliza Next.JS, Prisma, Supabase (PostgreSQL) e bibliotecas auxiliares como Zod e Jose.
+</p>
 
-First, run the development server:
+## Extensões recomendadas para IDE
+<div>
+  Você pode utilizar as seguintes extensões para auxiliar na implementação do projeto:
+</div>
+
+- Color Info (Matt Bierner)
+- ESLint (Microsoft)
+- JavaScript and TypeScript Nightly (Microsoft)
+- Prisma (Prisma)
+- Tailwind CSS IntelliSense (Tailwind Labs)
+
+## Configurações de ambiente
+<div>
+  Instale as dependências principais do projeto:
+</div>
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install react-icons
+npm install qrcode
+npm install --save-dev @types/qrcode
+npm install jose
+npm install bcrypt
+npm install --save-dev @types/bcrypt
+npm install zod
+npm install ts-node
+npm install nodemailer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<div>
+  Adicione a seguinte propriedade ao <code>package.json</code> (após <code>"private": true,</code>, por exemplo):
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+"type": "module",
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Caso aponte erro do import do 'globals.css' dentro do 'layout.tsx'
+<div>
+  Crie o arquivo <code>globals.d.ts</code> na raíz do projeto e o preencha com os seguintes dados:
+</div>
 
-## Learn More
+```bash
+declare module "*.css";
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Prisma ORM
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### • Instalação do Prisma
+<div>
+  Instale as dependências para utilizar o Prisma ORM:
+</div>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install prisma @types/node @types/pg --save-dev
+npm install @prisma/client @prisma/adapter-pg pg dotenv
+```
 
-## Deploy on Vercel
+### • Inicializando o Prisma
+<div>
+  Utilize o seguinte comando para inicializar o prisma:
+</div>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx prisma init
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### • Gerar o Prisma Client
+<div>
+  Utilize o seguinte comando para gerar o cliente do prisma (é bom utilizá-lo após alguma alteração no schema e antes do migrate):
+</div>
+
+```bash
+npx prisma generate
+```
+
+### • Migrações do Prisma
+<div>
+  Migração (quando quiser enviar qualquer alteração do schema para o Banco de Dados):
+</div>
+
+```bash
+npx prisma migrate dev --name (nome da migração)
+```
+
+<div>
+  Caso precise resetar o banco de dados:
+</div>
+
+```bash
+npx prisma migrate reset
+```
+
+### • Informações do .env
+<div>
+  Adicione o arquivo <code>.env</code> à raiz do projeto (caso ele não tenha sido automaticamente gerado) e configure as seguintes variáveis:
+</div>
+
+```bash
+JWT_SECRET=código de segurança longo, da sua preferência (sem aspas)
+DATABASE_URL="Link fornecido pelo Supabase na área de Conexão" (com aspas)
+```
+
+### • Para gerar um JWT Secret
+<div>
+  No seu terminal, você pode escrever o seguinte comando para gerar uma chave <code>JWT_SECRET</code> para utilizar no seu código:
+</div>
+
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```
+
+### • Seed e Sincronização
+
+<div>
+  No arquivo <code>prisma.config.ts</code>, adicione a seguinte propriedade dentro de 'migrations':
+</div>
+
+```bash
+seed: "npx ts-node prisma/seed.ts",
+```
+
+<div>
+  Para executar algum <code>seed.ts</code> dentro da pasta prisma:
+</div>
+
+```bash
+npx prisma db seed
+```
+
+<div>
+  Para deixar o seu schema igual ao o Banco de Dados atual (caminho inverso do migrate):
+</div>
+
+```bash
+npx prisma db pull
+```
+
+## Configurações no Supabase:
+
+<div>
+  Execute os comandos abaixo no SQL Editor do Supabase:
+</div>
+
+<br/>
+
+### • Ativar Row Level Security na tabela <code>Client</code>:
+
+```bash
+ALTER TABLE "Client" ENABLE ROW LEVEL SECURITY;
+```
+
+### • Bloquear acesso público à tabela <code>Client</code>
+
+```bash
+CREATE POLICY "Block public access"
+ON "Client"
+FOR ALL
+TO anon, authenticated
+USING (false);
+```
+
+### •Ativar RLS na tabela de migrações do Prisma:
+
+```bash
+ALTER TABLE "_prisma_migrations" ENABLE ROW LEVEL SECURITY;
+```

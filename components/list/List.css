@@ -1,0 +1,53 @@
+/* components/list/List.css */
+
+@import "../../app/globals.css";
+
+.list-container {
+  @apply
+    flex 
+    flex-col 
+    w-full 
+    border 
+    border-neutral-300 
+    dark:border-neutral-700 
+    bg-white 
+    dark:bg-neutral-900 
+    rounded-lg 
+    overflow-visible 
+}
+
+.list-header {
+  @apply
+    grid 
+    items-center 
+    gap-6 
+    px-4 
+    py-3 
+    bg-neutral-100 
+    dark:bg-neutral-800 
+    text-neutral-600 
+    dark:text-neutral-300 
+    font-semibold 
+    text-sm 
+    rounded-t-lg 
+    border-b 
+    border-neutral-200 
+    dark:border-neutral-700
+}
+
+.last-item {
+  @apply
+    border-neutral-200 
+    dark:border-neutral-700 
+    mx-4
+}
+
+.not-founded-item {
+  @apply
+    px-4 
+    py-10 
+    text-center 
+    text-neutral-500 
+    dark:text-neutral-400 
+    italic
+}

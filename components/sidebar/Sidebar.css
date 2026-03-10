@@ -1,0 +1,144 @@
+/* components/sidebar/Sidebar.css */
+
+@import "../../app/globals.css";
+
+.sidebar-toggle-button {
+  @apply 
+    lg:hidden 
+    fixed 
+    top-5 
+    left-5 
+    z-50 
+    p-2
+    border
+    border-neutral-200
+    hover:border-primary 
+    bg-neutral-100
+    text-neutral-900 
+    hover:bg-primary
+    hover:text-neutral-100
+    active:bg-primary/70
+    dark:border-neutral-700
+    dark:bg-neutral-900
+    dark:text-neutral-100
+    active:scale-95
+    transition-colors
+    cursor-pointer
+    rounded-lg
+}
+
+.overlay-mobile {
+  @apply 
+    lg:hidden 
+    fixed  
+    bg-black/50
+    inset-0 
+    z-30
+}
+
+.sidebar-background {
+  @apply 
+    fixed 
+    top-0 
+    left-0 
+    w-full
+    h-full 
+    bg-neutral-100
+    text-neutral-900
+    dark:bg-neutral-900
+    dark:text-neutral-100
+    transition-transform 
+    duration-300 
+    ease-in-out
+    lg:translate-x-0 
+    lg:w-64 
+    z-40 
+    shadow-xl
+    shadow-neutral-300
+    dark:shadow-neutral-800
+}
+
+.sidebar-division {
+  @apply 
+    border-b 
+    border-neutral-200
+    dark:border-neutral-700
+}
+
+.sidebar-header {
+  @apply 
+    flex
+    flex-col
+    items-center
+    gap-5
+    py-6
+}
+
+.sidebar-item-button {
+  @apply 
+    flex 
+    items-center 
+    space-x-3 
+    px-4 
+    py-3
+    hover:bg-neutral-100
+    dark:hover:bg-neutral-700
+    hover:text-primary
+    active:bg-secondary/70
+    active:scale-95
+    transition-colors
+    font-medium
+    rounded-lg
+}
+
+.sidebar-item-active {
+  @apply 
+    bg-primary
+    text-white
+    border-l-6
+    border-tertiary
+    dark:border-tertiary
+    hover:bg-secondary
+    hover:text-white
+    font-semibold
+    rounded-l-lg
+}
+
+.sidebar-logout-button {
+  @apply 
+    flex 
+    items-center 
+    space-x-3 
+    px-4 
+    py-3
+    m-2
+    mb-5
+    hover:bg-red-600
+    dark:hover:bg-red-700
+    transition-colors 
+    cursor-pointer
+    font-semibold
+    rounded-lg
+}
+
+.role-tag {
+  @apply
+    text-xs 
+    font-semibold 
+    uppercase 
+    px-2 
+    py-1 
+    rounded-full
+}
+
+.purple-tag {
+  @apply
+    bg-purple-300 
+    text-purple-800
+}
+
+.blue-tag {
+  @apply
+    bg-blue-300 
+    text-blue-800
+}
