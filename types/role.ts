@@ -1,8 +1,8 @@
 /* types/role.ts */
 
 export enum Role {
-  SUPER_ADMIN = "SUPER_ADMIN",
-  ADMIN = "ADMIN",
+  CLIENT = "CLIENT",
   MASTER = "MASTER",
-  CLIENT = "CLIENT"
+  ADMIN = "ADMIN",
+  SUPER_ADMIN = "SUPER_ADMIN",
 };
