@@ -4,34 +4,24 @@ import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/jwt";
 import { JwtPayload } from "@/types/auth";
-import { AuthUser } from "@/types/user";
+import { Role } from "@/types/role";
 
-export async function getAuthUser(): Promise<AuthUser | null> {
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-    if (!token) return null;
-    
-    const payload = await verifyToken<JwtPayload>(token);
-    if (!payload || !payload.id) return null;
+export async function getAuthUser() {
+  const token = (await cookies()).get("token")?.value;
+  if (!token) return null;
 
-    const user = await prisma.user.findUnique({
-      where: { id: payload.id },
-      select: {
-        id: true,
-        email: true,
-        role: true,
-      },
-    });
+  const payload = await verifyToken<JwtPayload>(token);
+  if (!payload) return null;
 
-    if (!user) 
+  switch (payload.role) {
+    case Role.CLIENT:
+      return await prisma.client.findUnique({ where: { id: payload.id } });
+    case Role.MASTER:
+      return await prisma.organizer.findUnique({ where: { id: payload.id } });
+    case Role.ADMIN:
+    case Role.SUPER_ADMIN:
+      return await prisma.admin.findUnique({ where: { id: payload.id } });
+    default:
       return null;
-
-    return user as AuthUser;
-  } 
-  
-  catch (error) {
-    console.error("[GET_AUTH_USER_ERROR]:", error);
-    return null;
   };
 };

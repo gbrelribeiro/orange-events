@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { signToken } from "@/lib/jwt";
+import { Role } from "@/types/role";
 
 /* ZOD VALIDATION SCHEMAS */
 const loginSchema = z.object({
@@ -57,7 +58,8 @@ export async function POST(req: Request) {
 
     const token = await signToken({
       id: client.id,
-      email: client.email
+      email: client.email,
+      role: client.role as Role.CLIENT,
     });
 
     const response = NextResponse.json({ sucess: true });
