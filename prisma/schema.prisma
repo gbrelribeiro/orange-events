@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CLIENT
+  MASTER
+  ADMIN
+  SUPER_ADMIN
+}
+
+model Client {
+  id                        String                  @id @default(cuid())
+  firstName                 String
+  lastName                  String
+  email                     String                  @unique
+  password                  String
+  document                  String                  @unique
+  identity                  String                  @unique
+  phone                     String
+  birthDate                 DateTime
+  role                      Role                    @default(CLIENT)
+  address                   Address?
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+}
+
+model Address {
+  id                        String                  @id @default(cuid())
+  street                    String
+  number                    String
+  complement                String?
+  neighborhood              String
+  city                      String
+  state                     String
+  zipcode                   String
+  clientId                  String                  @unique
+  client                    Client                  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Admin {
+  id                        String                  @id @default(cuid())
+  firstName                 String
+  lastName                  String
+  email                     String                  @unique
+  password                  String
+  role                      Role                    @default(ADMIN)
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+}
+
+model Master {
+  id                        String                  @id @default(cuid())
+  email                     String                  @unique
+  organizationName          String                  @unique
+  organizationIdentity      String                  @unique
+  password                  String
+  role                      Role                    @default(MASTER)
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @updatedAt
+}
