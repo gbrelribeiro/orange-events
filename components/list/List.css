@@ -1,0 +1,46 @@
+/* components/list/List.css */
+
+@import "../../app/globals.css";
+
+.list-container {
+  @apply
+    flex 
+    flex-col 
+    w-full 
+    border 
+    border-neutral-300  
+    bg-white 
+    rounded-lg 
+    overflow-visible 
+}
+
+.list-header {
+  @apply
+    grid 
+    items-center 
+    gap-6 
+    px-4 
+    py-3 
+    bg-neutral-100  
+    text-neutral-600 
+    font-semibold 
+    text-sm 
+    rounded-t-lg 
+    border-b 
+    border-neutral-200 
+}
+
+.last-item {
+  @apply
+    border-neutral-200 
+    mx-4
+}
+
+.not-founded-item {
+  @apply
+    px-4 
+    py-10 
+    text-center 
+    text-neutral-500 
+    italic
+}

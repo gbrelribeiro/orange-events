@@ -1,0 +1,11 @@
+/* components/list/ListEmpty.css */
+
+@import "../../app/globals.css";
+
+.empty-list-styles {
+  @apply
+    p-4
+    text-center 
+    text-neutral-500  
+    italic
+}

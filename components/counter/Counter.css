@@ -1,0 +1,41 @@
+/* components/inputs/Counter.css */
+
+@import "../../app/globals.css";
+
+.button-position {
+  @apply
+    flex
+    justify-between
+    items-center
+}
+
+.plus-and-minus-space {
+  @apply
+    flex
+    flex-row
+    items-center
+    gap-1
+}
+
+.number-display {
+  @apply
+    w-6 
+    text-center
+}
+
+.counter-button {
+  @apply
+    px-2
+    py-2
+    flex
+    justify-center
+    items-center
+    text-white
+    bg-tertiary
+    hover:bg-quaternary
+    active:bg-quaternary/80
+    active:scale-95
+    font-semibold
+    rounded-lg
+    cursor-pointer
+}

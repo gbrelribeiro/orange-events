@@ -1,0 +1,22 @@
+/* components/dropdown/DropdownItem.css */
+
+@import "../../app/globals.css";
+
+.dropdown-item {
+  @apply
+    block
+    w-full
+    px-4
+    py-6    
+    md:py-4
+    text-lg
+    md:text-base
+    text-left
+    border-b
+    border-neutral-200
+    text-neutral-700
+    hover:bg-neutral-300
+    active:text-neutral-500
+    transition
+    cursor-pointer
+}

@@ -1,0 +1,28 @@
+/* components/navbar/Navbar.css */
+
+@import "../../app/globals.css";
+
+.navbar-styles {
+  @apply
+    sticky 
+    top-0 
+    z-50 
+    w-full 
+    px-10 
+    py-2
+    border-b 
+    border-neutral-200
+    bg-white
+    backdrop-blur-md 
+}
+
+.user-icon-button {
+  @apply 
+    text-primary
+    hover:text-secondary
+    active:text-secondary/70
+    active:scale-95
+    rounded-full
+    transition
+    cursor-pointer
+}
