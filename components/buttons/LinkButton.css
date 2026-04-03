@@ -1,0 +1,23 @@
+/* components/linkbutton/LinkButton.css */
+
+@import "../../app/globals.css";
+
+.link-button {
+  @apply
+    relative
+    md:absolute
+    md:top-32
+    underline
+    text-lg
+    md:text-base
+    active:scale-95
+    transition-transform 
+    duration-150
+    inline-block
+    font-semibold
+    rounded-lg
+    text-primary
+    hover:text-secondary
+    active:text-secondary/80
+    cursor-pointer
+}

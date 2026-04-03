@@ -1,11 +1,11 @@
-/* components/forms/LoginForm.tsx */
+/* components/forms/ClientLoginForm.tsx */
 
 "use client";
 
 import { useState, SyntheticEvent } from "react";
 import { ApiError } from "@/types/error";
 
-export default function LoginForm() {
+export default function ClientLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

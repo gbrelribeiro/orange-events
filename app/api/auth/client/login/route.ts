@@ -1,12 +1,12 @@
 /* app/api/auth/client/login/route.ts */
 
 import { z } from "zod";
-import { emailSchema, passwordSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { signToken } from "@/lib/jwt";
 import { Role } from "@/types/role";
+import { emailSchema, passwordSchema } from "@/lib/validations";
 
 /* ZOD VALIDATION SCHEMAS */
 const loginSchema = z.object({

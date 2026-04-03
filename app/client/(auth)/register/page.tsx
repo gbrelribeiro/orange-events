@@ -3,15 +3,16 @@
 "use client";
 
 import Container from "@/components/container/Container";
-import RegisterForm from "@/components/forms/RegisterForm";
+import LinkButton from "@/components/buttons/LinkButton";
+import ClientRegisterForm from "@/components/forms/ClientRegisterForm";
 
 export default function ClientRegister() {
   return (
     <div className="centered-content">
+      <LinkButton target="home" />
       
-      {/* ADMIN LOGIN FORM CONTAINER */}
-      <Container title="Log In" size="xl">
-        <RegisterForm/>
+      <Container title="Cadastro de Cliente" size="xl">
+        <ClientRegisterForm/>
       </Container>
     </div>
   );

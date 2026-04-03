@@ -3,7 +3,7 @@
 "use client";
 
 import Container from "@/components/container/Container";
-import LoginForm from "@/components/forms/LoginForm";
+import ClientLoginForm from "@/components/forms/ClientLoginForm";
 
 export default function ClientLogin() {
   return (
@@ -11,7 +11,7 @@ export default function ClientLogin() {
       
       {/* ADMIN LOGIN FORM CONTAINER */}
       <Container title="Log In" size="xl">
-        <LoginForm/>
+        <ClientLoginForm/>
       </Container>
     </div>
   );

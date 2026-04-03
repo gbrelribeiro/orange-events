@@ -1,155 +1,100 @@
 /* app/api/auth/client/register/route.ts */
 
+import { z } from "zod";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
-import { z } from "zod";
-import {
+import { signToken } from "@/lib/jwt";
+import { Role } from "@/types/role";
+import { 
+  emailSchema, 
+  passwordSchema, 
+  documentSchema, 
+  phoneSchema, 
+  birthDateSchema,
   addressSchema,
-  adultBirthDateSchema,
-  documentSchema,
-  emailSchema,
   firstNameSchema,
-  identitySchema,
   lastNameSchema,
-  passwordSchema,
-  phoneSchema,
+  identitySchema
 } from "@/lib/validations";
 
-/* REGISTER VALIDATION SCHEMA */
+/* ZOD VALIDATION SCHEMAS */
 const registerSchema = z.object({
   firstName: firstNameSchema,
   lastName: lastNameSchema,
-  email: emailSchema,
-  password: passwordSchema,
+  birthDate: birthDateSchema,
   document: documentSchema,
   identity: identitySchema,
   phone: phoneSchema,
-  birthDate: adultBirthDateSchema,
+  email: emailSchema,
+  password: passwordSchema,
   address: addressSchema,
 });
 
-/* REGISTER HANDLER */
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const parsed = registerSchema.safeParse(body);
 
-    const sanitizedBody = {
-      ...body,
-      phone: body.phone ? body.phone.replace(/\D/g, "") : "",
-      document: body.document ? body.document.replace(/\D/g, "") : "",
-      identity: body.identity ? body.identity.replace(/\D/g, "") : "",
-    };
-
-    const parsed = registerSchema.safeParse(sanitizedBody);
-
-    /* VALIDATION ERROR */
     if (!parsed.success) {
       return NextResponse.json(
-        {
-          error: "Falha na validação.",
-          issues: parsed.error.issues.map((issue) => ({
-            field: issue.path.join("."),
+        { 
+          error: "Dados inválidos.",
+          issues: parsed.error.issues.map(issue => ({
+            field: issue.path[issue.path.length - 1], 
             message: issue.message,
           })),
-        },
+        }, 
         { status: 400 }
       );
     };
 
-    const {
-      birthDate,
-      firstName,
-      lastName,
-      document,
-      email,
-      identity,
-      password,
-      phone,
-      address,
-    } = parsed.data;
+    const { email, password, firstName, lastName, document, identity, phone, birthDate, address } = parsed.data;
 
-    /* CHECK IF EMAIL EXISTS */
-    const existingClient = await prisma.client.findUnique({
-      where: { email },
-      select: { id: true },
-    });
+    /* VERIFY DUPLICITE */
+    const existingClient = await prisma.client.findUnique({ where: { email } });
+    if (existingClient) return NextResponse.json({ error: "Email já registrado." }, { status: 409 });
 
-    if (existingClient) {
-      return NextResponse.json(
-        { error: "Email já cadastrado." },
-        { status: 409 }
-      );
-    }
+    /* CREATE IN DATABASE */
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    /* CHECK IF DOCUMENT EXISTS */
-    const existingDocument = await prisma.client.findUnique({
-      where: { document },
-      select: { id: true },
-    });
-
-    if (existingDocument) {
-      return NextResponse.json(
-        { error: "CPF já cadastrado." },
-        { status: 409 }
-      );
-    }
-
-    /* CHECK IF IDENTITY EXISTS */
-    const existingIdentity = await prisma.client.findUnique({
-      where: { identity },
-      select: { id: true },
-    });
-
-    if (existingIdentity) {
-      return NextResponse.json(
-        { error: "RG já cadastrado." },
-        { status: 409 }
-      );
-    }
-
-    /* HASH PASSWORD */
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const [day, month, year] = birthDate.split("/");
-    const isoBirthDate = new Date(`${year}-${month}-${day}T12:00:00Z`);
-
-    /* CREATE A CLIENT WITH ADDRESS */
-    await prisma.client.create({
+    const client = await prisma.client.create({
       data: {
         firstName,
         lastName,
         email,
         password: hashedPassword,
-        role: "CLIENT",
-        identity,
         document,
+        identity,
         phone,
-        birthdate: isoBirthDate,
+        birthDate,
+        role: Role.CLIENT,
         address: {
-          create: {
-            zipCode: address.zipCode.replace(/\D/g, ""),
-            street: address.street,
-            number: address.number,
-            neighborhood: address.neighborhood,
-            city: address.city,
-            state: address.state.toUpperCase(),
-            complement: address.complement || "",
-          },
-        },
+          create: address
+        }
       },
     });
 
-    return NextResponse.json(
-      { success: true },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error("[REGISTER_CLIENT_ERROR]", error);
+    const token = await signToken({
+      id: client.id,
+      email: client.email,
+      role: Role.CLIENT,
+    });
 
-    return NextResponse.json(
-      { error: "Erro interno no servidor." },
-      { status: 500 }
-    );
+    const response = NextResponse.json({ success: true }, { status: 201 });
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+    });
+
+    return response;
+  } 
+  
+  catch (error) {
+    console.error("[REGISTER_ERROR]:", error);
+    return NextResponse.json({ error: "Erro interno no servidor." }, { status: 500 });
   };
 };

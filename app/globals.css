@@ -178,6 +178,14 @@
       font-medium
       outline-none
   }
+ 
+  .input-wrapper {
+    @apply 
+      flex 
+      flex-col 
+      w-full
+      gap-1
+  }
 
   .error-input {
     @apply
@@ -192,5 +200,34 @@
       text-red-600
       font-medium
       text-sm
+  }
+
+  .message {
+    @apply
+      p-2
+      border
+      text-center
+      rounded-lg
+  }
+
+  .message.confirm {
+    @apply
+      border-green-500
+      bg-green-300
+      text-green-600
+  }
+
+  .message.warning {
+    @apply
+      border-amber-500
+      bg-amber-300
+      text-amber-600
+  }
+
+  .message.error {
+    @apply
+      border-red-500
+      bg-red-300
+      text-red-600
   }
 }
