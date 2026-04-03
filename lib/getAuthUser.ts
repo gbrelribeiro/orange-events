@@ -20,6 +20,7 @@ export async function getAuthUser(): Promise<AuthUser | null> {
       select: {
         id: true,
         email: true,
+        role: true,
       },
     });
 
